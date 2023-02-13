@@ -23,13 +23,12 @@ class Studentsystem {
             System.out.print("Angi ditt valg: ");
             input = scan.nextLine();
             switch (input) {
-
                 // Print emnene med flest studenter
                 case "1":
                     hentEmneMedFlestStudenter();
                     break;
 
-                // Print studentene med flest emner
+                // Print studentene med flest emneqr
                 case "2":
                     hentStudentMedFlestEmner();
                     break;
@@ -66,6 +65,9 @@ class Studentsystem {
                         System.out.println(student.hentNavn());
                     }
                     break;
+                case "q":
+                    System.exit(0);
+                break;
             }
         }        
     }
@@ -105,7 +107,7 @@ class Studentsystem {
                     System.out.println(student.hentNavn() + "_" + navnPaaStudent + "_" + student.hentNavn().length() + "_" + navnPaaStudent.length());
                     // Hvis student finnes
                     String navn = student.hentNavn();
-                    if (navn == navnPaaStudent) {
+                    if (navn.equals(navnPaaStudent)) {
                         System.out.println("Finnes!");
                         studentFins = true;
                         sistEmne.leggTilStudent(student);
@@ -159,7 +161,8 @@ class Studentsystem {
         System.out.println("    6 -- Fjern student fra emne");
         System.out.println("    7 -- Legg til ny student");
         System.out.println("    8 -- Legg til nytt emne");
-        System.out.println("    Q -- Avslutt");
+        System.out.println("    9 -- Skriv ut alle unike studenter");
+        System.out.println("    q -- Avslutt");
     }
 
 
