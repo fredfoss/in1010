@@ -10,7 +10,7 @@ class LagFil {
         }
 
         // Skriv tallene fra 1 til 10:
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 5; i <= 10; i++) {
             f.println(i);
         }
         f.close();

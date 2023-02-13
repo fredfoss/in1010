@@ -1,0 +1,57 @@
+Meny
+|
+|---mest populært emne
+|
+|
+|---student med flest emner
+|
+|
+|---alle studenter i emne
+|   |
+|   |---'emne'
+|
+|
+|---alle emner til student
+|   |
+|   |---'student'
+|
+|
+|---legg student til emne
+|   |
+|   |---'emne'
+|       |
+|       |---'student'
+|
+|
+|---legg emne til student
+|   |
+|   |---'student'
+|       |
+|       |---'emne'
+|
+|
+|---fjern student fra emne
+|   |
+|   |---'emne'
+|       |
+|       |---'student'
+|
+|
+|---fjern emne fra student
+|   |
+|   |---'student'
+|       |
+|       |---'emne'
+|
+|
+|---ny student
+|   |
+|   |---'student'
+|
+|
+|---nytt emne
+|   |
+|   |---'emne'
+|
+|
+|---avslutt

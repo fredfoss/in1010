@@ -1,0 +1,19 @@
+        // Oppretter emner, studenter og legger til i lister
+        while (fil.hasNextLine()) {
+            String linje = fil.nextLine();
+            if (linje.charAt(0) == '*') {
+                String navnPaaEmne = linje.replace("*", "");
+                Emne emne = new Emne(navnPaaEmne);
+                alleEmner.add(emne);
+
+                while (fil.hasNextLine()) {
+                    String nesteLinje = fil.nextLine();
+                    if (nesteLinje.charAt(0) != '*') {
+                        String navnPaaStudent = nesteLinje;
+                        Student student = new Student(navnPaaStudent, emne);
+                        alleStudenter.add(student);
+                    }
+                }
+            }
+        }
+
