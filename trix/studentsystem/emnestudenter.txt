@@ -1,5 +1,10 @@
-*MAT1100
+*MAT1110
 Fredrik
 Marco
-*IN1000
+*IN1010
+Fredrik
+Pus
+Geir
+*IN1080
+Kevin
 Fredrik

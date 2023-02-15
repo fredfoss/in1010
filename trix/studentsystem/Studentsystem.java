@@ -28,7 +28,7 @@ class Studentsystem {
                     hentEmneMedFlestStudenter();
                     break;
 
-                // Print studentene med flest emneqr
+                // Print studentene med flest emner
                 case "2":
                     hentStudentMedFlestEmner();
                     break;
@@ -69,6 +69,7 @@ class Studentsystem {
                     System.exit(0);
                 break;
             }
+            System.out.println();
         }        
     }
 
@@ -88,9 +89,7 @@ class Studentsystem {
 
         // Oppretter emner, studenter og legger til i lister
         while (fil.hasNextLine()) {
-            
             String linje = fil.nextLine().trim();
-
             if (linje.charAt(0) == '*') {
                 String navnPaaEmne = linje.replace("*", "");
                 Emne emne = new Emne(navnPaaEmne);
@@ -100,15 +99,11 @@ class Studentsystem {
             else {
                 String navnPaaStudent = linje;
                 Emne sistEmne = alleEmner.get(alleEmner.size() - 1);
-
                 boolean studentFins = false;
                 for (Student student : alleStudenter) {
-
-                    System.out.println(student.hentNavn() + "_" + navnPaaStudent + "_" + student.hentNavn().length() + "_" + navnPaaStudent.length());
                     // Hvis student finnes
                     String navn = student.hentNavn();
                     if (navn.equals(navnPaaStudent)) {
-                        System.out.println("Finnes!");
                         studentFins = true;
                         sistEmne.leggTilStudent(student);
                         student.leggTilEmne(sistEmne);
@@ -151,7 +146,6 @@ class Studentsystem {
 
     // Print meny
     private static void skrivMeny() {
-
         System.out.println("Operasjoner:");
         System.out.println("    1 -- Finn emne med flest studenter");
         System.out.println("    2 -- Finn student med flest emner");
@@ -221,10 +215,11 @@ class Studentsystem {
     // Skriv ut alle studenter i et emne
     private static void hentAlleStudenterIEmne() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Emne: ");
+        System.out.print("Emne: ");
         String navnPaaEmne = scan.nextLine();
+
         for (Emne emne : alleEmner) {
-            if (emne.hentNavn() == navnPaaEmne) {
+            if (emne.hentNavn().equals(navnPaaEmne)) {
                 for (Student student : emne.hentStudenter()) {
                     System.out.println(student.hentNavn());
                 }
@@ -238,8 +233,10 @@ class Studentsystem {
         Scanner scan = new Scanner(System.in);
         System.out.print("Student: ");
         String navnPaaStudent = scan.nextLine();
+
         for (Student student : alleStudenter) {
-            if (student.hentNavn() == navnPaaStudent) {
+            if (student.hentNavn().equals(navnPaaStudent)) {
+                System.out.println(student.hentEmner());
                 for (Emne emne : student.hentEmner()) {
                     System.out.println(emne.hentNavn());
                 }

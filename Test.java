@@ -11,3 +11,6 @@ class Test {
         System.out.println(setning.replace("*", ""));
     }
 }
+
+
+ 
