@@ -1,16 +1,29 @@
 import java.io.File;
 import java.util.Scanner;
 
-class Test {
+public class Test {
     public static void main(String[] args) {
+        Pers pers1 = Pers("fredrik");
+        Pers pers2 = Pers("dude");
 
-        String setning = "*Hei jeg heter Fredri*k";
-        System.out.println(setning.contains("*"));
-        System.out.println(setning.charAt(0) == '*');
+        System.out.println(pers1.hentTeller());
+        System.out.println(pers2.hentTeller());
 
-        System.out.println(setning.replace("*", ""));
     }
 }
 
 
+public class Pers {
+    protected String navn;
+    protected static int teller;
+    
+    public Pers(String navn) {
+        this.navn = navn;
+        teller++;
+    }
+
+    public int hentTeller() {
+        return teller;
+    }
+}
  
