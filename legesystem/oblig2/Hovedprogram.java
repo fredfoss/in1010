@@ -1,7 +1,10 @@
+// Hovedprogram
 class Hovedprogram {
 
+    // Main-klasse
     public static void main(String[] args) {
 
+        // Opprett objekter av de forskjellige klassene
         Lege lege = new Lege("mr. lege");
         Spesialist spesialist = new Spesialist("mr. spesialist", "minHemmeligeKode");
         
@@ -14,7 +17,7 @@ class Hovedprogram {
         PResept pResept = new PResept(vanedannende, lege, 3555, 1);
         BlaaResept blaaResept = new BlaaResept(vanlig, lege, 3535, 2);
 
-
+        // Print informasjon om de forskjellige objektene
         System.out.println(vanlig.toString());
         System.out.println(narkotisk.toString());
         System.out.println(vanedannende.toString());

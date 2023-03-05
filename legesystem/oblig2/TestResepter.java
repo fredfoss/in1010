@@ -1,3 +1,4 @@
+// Test av Resepter
 class TestResepter {
 
     private static boolean testReseptFarge(Resept resept, String forventetFarge) {

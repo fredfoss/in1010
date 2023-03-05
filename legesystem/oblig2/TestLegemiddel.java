@@ -1,3 +1,4 @@
+// Test av Legemiddel
 class TestLegemiddel {
 
     private static boolean testLegemiddelId(Legemiddel legemiddel, int forventetLegemiddelId) {
