@@ -6,7 +6,7 @@ class Hovedprogram {
 
         // Opprett objekter av de forskjellige klassene
         Lege lege = new Lege("mr. lege");
-        Spesialist spesialist = new Spesialist("mr. spesialist", "minHemmeligeKode");
+        Spesialist spesialist = new Spesialist("mr. spesialist", "kontrollkode123");
         
         Vanlig vanlig = new Vanlig("Ibux", 100, 5.2);
         Narkotisk narkotisk = new Narkotisk("Sterke saker", 100, 10.5, 15);
