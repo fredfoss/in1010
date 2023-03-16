@@ -1,4 +1,3 @@
-
 interface Liste<T> extends Iterable<T>{
 	int size();
 	void add(T x);
