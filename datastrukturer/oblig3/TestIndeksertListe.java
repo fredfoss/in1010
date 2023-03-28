@@ -18,7 +18,7 @@ class TestIndeksertListe {
 	}
 	
 	for (int i = 0;  i < fLen;  ++i) {
-	    int fElem = fasit[i];
+	  int fElem = fasit[i];
 	    Integer kElem = k.fjern();
 	    if (kElem == null) {
 		p("fjern() gir null for element nr " + i);

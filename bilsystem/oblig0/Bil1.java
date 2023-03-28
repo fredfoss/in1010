@@ -1,7 +1,8 @@
 // klasse Bil1
 public class Bil1 {
-    
-    public void skrivUt() {
-        System.out.println("Jeg er en bil");
-    }
+
+  // Skriv ut
+  public void skrivUt() {
+    System.out.println("Jeg er en bil");
+  }
 }

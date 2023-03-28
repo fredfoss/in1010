@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
-        Pers pers1 = Pers("fredrik");
+      Pers pers1 = Pers("fredrik");
         Pers pers2 = Pers("dude");
 
         System.out.println(pers1.hentTeller());

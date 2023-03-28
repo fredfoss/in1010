@@ -1,6 +1,6 @@
 class Ansatt extends Person {
     int lonnstrinn;
-    int antallTimer,
+    int antallTimer;
 
     void lonnstillegg(int tillegg) {
         //
