@@ -1,10 +1,10 @@
-// Klasse Narkotisk
-public class Narkotisk extends Legemiddel {
+// Klasse Vanedannende
+public class Vanedannende extends Legemiddel {
 
   public final int styrke;
 
-  // Konstuktoer
-  public Narkotisk(String navn, int pris, double virkestoff, int styrke) {
+  // Konstruktoer
+  public Vanedannende(String navn, int pris, double virkestoff, int styrke) {
     super(navn, pris, virkestoff);
     this.styrke = styrke;
   }

@@ -29,4 +29,19 @@ public class Pasient {
   public Koe<Resept> hentResepter() {
     return resepter;
   }
+
+  public void leggTilResept(Resept resept) {
+    resepter.leggTil(resept);
+  }
+
+  public String toString() {
+    return "Pasient "
+        + id
+        + ": "
+        + navn
+        + "\nFødselsnummer: "
+        + foedselsnummer
+        + "\nAntall resepter: "
+        + resepter.stoerrelse();
+  }
 }
