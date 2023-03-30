@@ -26,6 +26,11 @@ public abstract class Legemiddel {
     return pris;
   }
 
+  // Returner ID
+  public int hentId() {
+    return id;
+  }
+
   // Sett ny pris
   public void settNyPris(int pris) {
     this.pris = pris;
