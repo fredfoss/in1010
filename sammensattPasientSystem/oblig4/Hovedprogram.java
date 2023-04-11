@@ -277,5 +277,108 @@ public class Hovedprogram {
   }
 
   // Case 6: skriv ut forskjellige former for statistikk
-  private static void statistikk() {}
+  private static void statistikk() {
+    Scanner scan = new Scanner(System.in);
+
+    Koe<Pasient> allePasienter = legesystem.hentPasienter();
+    Prioritetskoe<Lege> alleLeger = legesystem.hentLeger();
+    Koe<Legemiddel> alleLegemidler = legesystem.hentLegemidler();
+    Koe<Resept> alleResepter = legesystem.hentResepter();
+
+    int count = 0;
+
+    boolean legeHarNarkRes = false;
+    String legeInfo = "";
+
+    boolean pasHarNarkRes = false;
+    String pasientInfo = "";
+
+    System.out.println("    1 -- Antall utskrevne vanedannende resepter");
+    System.out.println("    2 -- Antall utskrevne narkotiske resepter");
+    System.out.println("    3 -- Statistikk om mulig misbruk av narkotika");
+    System.out.println("    q -- Avbryt");
+    System.out.print("Valg: ");
+    String input = scan.nextLine();
+
+    switch (input) {
+      case "1":
+        // Totalt antall utskrevne resepter på vanedannende legemidler
+        for (Resept resept : alleResepter) {
+          if (resept.hentLegemiddel() instanceof Vanedannende) {
+            count++;
+          }
+        }
+        System.out.println();
+        System.out.println(count);
+        break;
+
+      case "2":
+        // Totalt antall utskrevne resepter på narkotiske legemidler
+        for (Resept resept : alleResepter) {
+          if (resept.hentLegemiddel() instanceof Narkotisk) {
+            count++;
+          }
+        }
+        System.out.println();
+        System.out.println(count);
+
+        break;
+
+      case "3":
+        // Statistikk om mulig misbruk av narkotika
+        System.out.println("    1 -- Leger med utskrevne narkotiske resepter");
+        System.out.println("    2 -- Pasienter med resept på narkotiske legemidler");
+        System.out.println("    q -- Avbryt");
+        System.out.print("Valg: ");
+        String input2 = scan.nextLine();
+
+        switch (input2) {
+          case "1":
+            // List opp navnene på alle leger som har skrevet ut minst én resept på narkotiske
+            // legemidler, og antallet slike resepter per lege
+            for (Lege lege : alleLeger) {
+              count = 0;
+              legeHarNarkRes = false;
+              for (Resept resept : lege.hentUtskrevneResepter()) {
+                if (resept.hentLegemiddel() instanceof Narkotisk) {
+                  legeHarNarkRes = true;
+                  count++;
+                }
+              }
+              if (legeHarNarkRes) {
+                legeInfo = lege.hentNavn() + ", " + count;
+                System.out.println(legeInfo);
+              }
+            }
+            break;
+
+          case "2":
+            // List opp navnene på alle pasienter som har minst én gyldig resept på narkotiske
+            // legemidler
+            for (Pasient pasient : allePasienter) {
+              count = 0;
+              pasHarNarkRes = false;
+              for (Resept resept : pasient.hentResepter()) {
+                if (resept.hentLegemiddel() instanceof Narkotisk) {
+                  pasHarNarkRes = true;
+                  count++;
+                }
+              }
+              if (pasHarNarkRes) {
+                pasientInfo = pasient.hentNavn() + ", " + count;
+                System.out.println(pasientInfo);
+              }
+            }
+            break;
+
+          case "q":
+            // Avbryt
+            break;
+
+          default:
+            // Ugyldig input
+            throw new RuntimeException("Ugyldig input");
+        }
+    }
+  }
 }

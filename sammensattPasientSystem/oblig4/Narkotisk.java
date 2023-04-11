@@ -17,10 +17,10 @@ public class Narkotisk extends Legemiddel {
         + id
         + ": "
         + navn
-        + "\nPris: "
-        + pris
         + "\nType: "
         + type
+        + "\nPris: "
+        + pris
         + "\nVirkestoff "
         + virkestoff
         + "\nStyrke: "

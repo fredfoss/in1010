@@ -43,10 +43,10 @@ public abstract class Legemiddel {
         + id
         + ": "
         + navn
-        + "\nPris: "
-        + pris
         + "\nType: "
         + type
+        + "\nPris: "
+        + pris
         + "\nVirkestoff: "
         + virkestoff;
   }
