@@ -61,17 +61,21 @@ public abstract class Resept {
 
   // Returner info
   public String toString() {
-    return "Legemiddel: "
-        + legemiddel
-        + ", utskrivende lege: "
-        + utskrivendeLege
-        + ", pasient ID: "
-        + hentPasientId()
-        + ", reit: "
+    return "Resept ID: "
+        + id
+        + "\nLegemiddel: "
+        + legemiddel.hentNavn()
+        + "\nUtskrivende lege: "
+        + utskrivendeLege.hentNavn()
+        + "\nPasient: "
+        + pasient.hentNavn()
+        + "\nPasient ID: "
+        + pasient.hentId()
+        + "\nReit: "
         + reit
-        + ", farge: "
+        + "\nFarge: "
         + farge()
-        + ", pris aa betale: "
+        + "\nPris aa betale: "
         + prisAaBetale();
   }
 }

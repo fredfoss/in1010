@@ -71,7 +71,7 @@ public class Legesystem {
     // Finn lege
     Lege lege = null;
     for (Lege legenode : leger) {
-      if (legenode.equals(legeNavn)) {
+      if (legenode.hentNavn().equals(legeNavn)) {
         lege = legenode;
         break;
       }
@@ -114,9 +114,8 @@ public class Legesystem {
     }
 
     // Lag resept
+    Resept resept = null;
     try {
-      Resept resept = null;
-
       // Hvis hvit resept
       if (type.equals("hvit")) {
         resept = lege.skrivHvitResept(legemiddel, pasient, reit);
@@ -162,47 +161,50 @@ public class Legesystem {
     // Les datafil
     String infotype = null;
     while (fil.hasNextLine()) {
+      try {
+        // Nåværende linje
+        String linje = fil.nextLine();
 
-      // Nåværende linje
-      String linje = fil.nextLine();
+        // Finn informasjonstype (pasienter/legemidler/leger/resepter)
+        if (linje.charAt(0) == '#') {
+          infotype = linje.split(" ")[1].toLowerCase();
+          continue;
+        }
 
-      // Finn informasjonstype (pasienter/legemidler/leger/resepter)
-      if (linje.charAt(0) == '#') {
-        infotype = linje.split(" ")[1].toLowerCase();
-        continue;
-      }
+        // Splitter linje inn i deler (argumenter)
+        String[] args = linje.split("\\s*,\\s*");
 
-      // Splitter linje inn i deler (argumenter)
-      String[] args = linje.split("\\s*,\\s*");
+        // Hvis pasienter
+        if (infotype.equals("pasienter")) {
+          leggTilPasient(args[0], args[1]);
+        }
 
-      // Hvis pasienter
-      if (infotype.equals("pasienter")) {
-        leggTilPasient(args[0], args[1]);
-      }
+        // Hvis leger
+        else if (infotype.equals("leger")) {
+          leggTilLege(args[0], args[1]);
+        }
 
-      // Hvis leger
-      else if (infotype.equals("leger")) {
-        leggTilLege(args[0], args[1]);
-      }
+        // Hvis legemidler
+        else if (infotype.equals("legemidler")) {
+          leggTilLegemiddel(
+              args[0],
+              args[1],
+              (int) Math.round(Double.parseDouble(args[2])),
+              Double.parseDouble(args[3]),
+              (int) Math.round(Double.parseDouble(args[4])));
+        }
 
-      // Hvis legemidler
-      else if (infotype.equals("legemidler")) {
-        leggTilLegemiddel(
-            args[0],
-            args[1],
-            (int) Math.round(Double.parseDouble(args[2])),
-            Double.parseDouble(args[3]),
-            (int) Math.round(Double.parseDouble(args[4])));
-      }
-
-      // Hvis resepter
-      else if (infotype.equals("resepter")) {
-        leggTilResept(
-            Integer.parseInt(args[0]),
-            args[1],
-            Integer.parseInt(args[2]),
-            args[3],
-            Integer.parseInt(args[4]));
+        // Hvis resepter
+        else if (infotype.equals("resepter")) {
+          leggTilResept(
+              Integer.parseInt(args[0]),
+              args[1],
+              Integer.parseInt(args[2]),
+              args[3],
+              Integer.parseInt(args[4]));
+        }
+      } catch (IndexOutOfBoundsException e) {
+        System.out.println("ERROR: IndexOutOfBoundsException!");
       }
     }
     fil.close();
@@ -221,5 +223,10 @@ public class Legesystem {
   // Hent legemidler
   public Koe<Legemiddel> hentLegemidler() {
     return legemidler;
+  }
+
+  // Hent resepter
+  public Koe<Resept> hentResepter() {
+    return resepter;
   }
 }

@@ -4,6 +4,7 @@ public abstract class Legemiddel {
   public final String navn;
   public int pris; // Usikker om den skal ha public
   public final double virkestoff;
+  public String type = null;
   public final int id;
   public static int nesteId = 0;
 
@@ -38,6 +39,15 @@ public abstract class Legemiddel {
 
   // Returner info
   public String toString() {
-    return "Navn: " + navn + ", pris: " + pris + ", virkestoff: " + virkestoff + ", ID: " + id;
+    return "Legemiddel "
+        + id
+        + ": "
+        + navn
+        + "\nPris: "
+        + pris
+        + "\nType: "
+        + type
+        + "\nVirkestoff: "
+        + virkestoff;
   }
 }

@@ -2,7 +2,7 @@
 public class Lege implements Comparable<Lege> {
 
   public final String navn;
-  private IndeksertListe<Resept> utskrevneResepter = new IndeksertListe<>();
+  protected IndeksertListe<Resept> utskrevneResepter = new IndeksertListe<>();
 
   // Konstrukoer
   public Lege(String navn) {
@@ -82,6 +82,6 @@ public class Lege implements Comparable<Lege> {
 
   // Returner info
   public String toString() {
-    return "Navn: " + hentNavn() + ", Resepter: " + utskrevneResepter.stoerrelse();
+    return "Lege: " + hentNavn() + "\nResepter: " + utskrevneResepter.stoerrelse();
   }
 }

@@ -6,21 +6,24 @@ public class Vanedannende extends Legemiddel {
   // Konstruktoer
   public Vanedannende(String navn, int pris, double virkestoff, int styrke) {
     super(navn, pris, virkestoff);
+    type = "Vanedannende";
     this.styrke = styrke;
   }
 
   @Override
   // Returner info
   public String toString() {
-    return "Navn: "
-        + navn
-        + ", pris: "
-        + pris
-        + ", virkestoff: "
-        + virkestoff
-        + ", ID: "
+    return "Legemiddel "
         + id
-        + ", Styrke: "
+        + ": "
+        + navn
+        + "\nPris: "
+        + pris
+        + "\nType: "
+        + type
+        + "\nVirkestoff "
+        + virkestoff
+        + "\nStyrke: "
         + styrke;
   }
 }

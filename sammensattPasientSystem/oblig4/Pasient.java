@@ -39,7 +39,7 @@ public class Pasient {
         + id
         + ": "
         + navn
-        + "\nFødselsnummer: "
+        + "\nFoedselsnummer: "
         + foedselsnummer
         + "\nAntall resepter: "
         + resepter.stoerrelse();

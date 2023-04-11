@@ -1,12 +1,12 @@
 // Regner ut areal av rektangel
 class Areal {
-    public static void main(String[] args) {
-        int bredde = 10;
-        int hoyde = 20;
-        System.out.println("Bredde: " + bredde);
-        System.out.println("Hoyde: " + hoyde);
+  public static void main(String[] args) {
+    int width = 10;
+    int height = 20;
+    System.out.println("Bredde: " + width);
+    System.out.println("Hoyde: " + height);
 
-        int areal = bredde * hoyde;
-        System.out.println("Areal: " + areal);
-    }
+    int area = width * height;
+    System.out.println("Areal: " + area);
+  }
 }
