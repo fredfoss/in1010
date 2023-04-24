@@ -14,7 +14,7 @@ public class Hovedprogram {
 
     while (true) {
       skrivMeny();
-      System.out.print("Valg: ");
+      System.out.print("> ");
       input = scan.nextLine();
       switch (input) {
           // Print emnene med flest studenter
@@ -42,11 +42,18 @@ public class Hovedprogram {
           break;
 
         case "6":
+          brukResept();
+          break;
+
+        case "7":
           statistikk();
           break;
 
-        case "q":
+        case "x":
           System.exit(0);
+
+        default:
+          throw new RuntimeException("Ugyldig input");
       }
       System.out.println();
     }
@@ -60,8 +67,9 @@ public class Hovedprogram {
     System.out.println("    3 -- Legg til lege");
     System.out.println("    4 -- Legg til legemiddel");
     System.out.println("    5 -- Legg til resept");
-    System.out.println("    6 -- Statistikk");
-    System.out.println("    q -- Avslutt");
+    System.out.println("    6 -- Bruk resept");
+    System.out.println("    7 -- Statistikk");
+    System.out.println("    x -- Avslutt");
   }
 
   // Case 1: skriv ut en oversikt over alt
@@ -111,8 +119,8 @@ public class Hovedprogram {
     Scanner scan = new Scanner(System.in);
     System.out.println("    1 -- Vanlig lege");
     System.out.println("    2 -- Spesialist");
-    System.out.println("    q -- Avbryt");
-    System.out.print("Valg: ");
+    System.out.println("    x -- Avbryt");
+    System.out.print("> ");
     String input = scan.nextLine();
 
     switch (input) {
@@ -132,7 +140,7 @@ public class Hovedprogram {
         legesystem.leggTilLege(navnSpesialist, kontrollId);
         break;
 
-      case "q":
+      case "x":
         break;
 
       default:
@@ -146,8 +154,8 @@ public class Hovedprogram {
     System.out.println("    1 -- Vanlig");
     System.out.println("    2 -- Narkotisk");
     System.out.println("    3 -- Vanedannende");
-    System.out.println("    q -- Avbryt");
-    System.out.print("Valg: ");
+    System.out.println("    x -- Avbryt");
+    System.out.print("> ");
     String input = scan.nextLine();
 
     switch (input) {
@@ -189,7 +197,7 @@ public class Hovedprogram {
             navnVane, "vanedannende", prisVane, virkestoffVane, styrkeVane);
         break;
 
-      case "q":
+      case "x":
         break;
 
       default:
@@ -211,8 +219,8 @@ public class Hovedprogram {
     System.out.println("    2 -- P resept");
     System.out.println("    3 -- Militaer resept");
     System.out.println("    4 -- Blaa resept");
-    System.out.println("    q -- Avbryt");
-    System.out.print("Valg: ");
+    System.out.println("    x -- Avbryt");
+    System.out.print("> ");
     String input = scan.nextLine();
 
     switch (input) {
@@ -267,7 +275,7 @@ public class Hovedprogram {
         reit = Integer.parseInt(scan.nextLine());
         break;
 
-      case "q":
+      case "x":
         break;
 
       default:
@@ -276,7 +284,88 @@ public class Hovedprogram {
     legesystem.leggTilResept(legemiddelId, legeNavn, pasientId, type, reit);
   }
 
-  // Case 6: skriv ut forskjellige former for statistikk
+  // Case 6: bruk resept
+  private static void brukResept() {
+    Scanner scan = new Scanner(System.in);
+
+    // Skriv ut alle pasientene og la brukeren velge en
+    Koe<Pasient> allePasienter = legesystem.hentPasienter();
+    System.out.println("\nPasient:");
+    int i = 1;
+    for (Pasient pasient : allePasienter) {
+      System.out.println(
+          "    "
+              + i
+              + " --  "
+              + pasient.hentNavn()
+              + " (fnr "
+              + pasient.hentFoedselsnummer()
+              + ")");
+      i++;
+    }
+    System.out.print("> ");
+    int valgtPasientIndex = Integer.parseInt(scan.nextLine());
+    Pasient valgtPasient = null;
+    i = 1;
+    for (Pasient pasient : allePasienter) {
+      if (i == valgtPasientIndex) {
+        valgtPasient = pasient;
+        break;
+      }
+      i++;
+    }
+    System.out.println(
+        "Valgt pasient: "
+            + valgtPasient.hentNavn()
+            + " (fnr "
+            + valgtPasient.hentFoedselsnummer()
+            + ").");
+
+    // Skriv ut alle reseptene til valgt pasient og la brukeren velge en
+    Koe<Resept> pasientResepter = valgtPasient.hentResepter();
+    System.out.println("\nResept:");
+    if (pasientResepter.stoerrelse() == 0) {
+      System.out.println("Ingen resepter funnet for valgt pasient.");
+      return;
+    }
+    i = 1;
+    for (Resept resept : pasientResepter) {
+      System.out.println(
+          "    "
+              + i
+              + " -- "
+              + resept.hentLegemiddel().hentNavn()
+              + " ("
+              + resept.hentReit()
+              + " reit)");
+      i++;
+    }
+    System.out.print("> ");
+    int valgtReseptIndex = Integer.parseInt(scan.nextLine());
+    Resept valgtResept = null;
+    i = 1;
+    for (Resept resept : pasientResepter) {
+      if (i == valgtReseptIndex) {
+        valgtResept = resept;
+        break;
+      }
+      i++;
+    }
+
+    // Bruk resept og oppdater antall gjenværende reit
+    if (valgtResept.bruk()) {
+      System.out.println(
+          "Brukte resept på "
+              + valgtResept.hentLegemiddel().hentNavn()
+              + ". Antall gjenværende reit: "
+              + valgtResept.hentReit());
+    } else {
+      System.out.println(
+          "Kunne ikke bruke resept på " + valgtResept.hentLegemiddel().hentNavn() + ".");
+    }
+  }
+
+  // Case 7: skriv ut forskjellige former for statistikk
   private static void statistikk() {
     Scanner scan = new Scanner(System.in);
 
@@ -296,8 +385,8 @@ public class Hovedprogram {
     System.out.println("    1 -- Antall utskrevne vanedannende resepter");
     System.out.println("    2 -- Antall utskrevne narkotiske resepter");
     System.out.println("    3 -- Statistikk om mulig misbruk av narkotika");
-    System.out.println("    q -- Avbryt");
-    System.out.print("Valg: ");
+    System.out.println("    x -- Avbryt");
+    System.out.print("> ");
     String input = scan.nextLine();
 
     switch (input) {
@@ -328,8 +417,8 @@ public class Hovedprogram {
         // Statistikk om mulig misbruk av narkotika
         System.out.println("    1 -- Leger med utskrevne narkotiske resepter");
         System.out.println("    2 -- Pasienter med resept på narkotiske legemidler");
-        System.out.println("    q -- Avbryt");
-        System.out.print("Valg: ");
+        System.out.println("    x -- Avbryt");
+        System.out.print("> ");
         String input2 = scan.nextLine();
 
         switch (input2) {
@@ -371,7 +460,7 @@ public class Hovedprogram {
             }
             break;
 
-          case "q":
+          case "x":
             // Avbryt
             break;
 
