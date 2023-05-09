@@ -1,0 +1,179 @@
+Beklager for misforståelsen. Her er en oppdatert versjon av koden som implementerer det du ønsker:
+
+View.java:
+```java
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+// Klasse View
+public class View extends JFrame {
+    private static final long serialVersionUID = 1L;
+    private final int CELLE_STORRELSE = 10;
+    private Verden verden;
+    private JPanel rutenettPanel;
+    private JButton startStoppKnapp;
+    private JButton avsluttKnapp;
+    private Controller controller;
+
+    // Konstruktor
+    public View(Verden verden, Controller controller) {
+        this.verden = verden;
+        this.controller = controller;
+        setTitle("Game of Life");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        // Oppretter rutenett-panel
+        rutenettPanel = new JPanel(new GridLayout(verden.antRader, verden.antKolonner));
+        rutenettPanel.setPreferredSize(new Dimension(verden.antKolonner * CELLE_STORRELSE, verden.antRader * CELLE_STORRELSE));
+        rutenettPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        // Legger til celler i rutenett-panel
+        for (int i = 0; i < verden.antRader; i++) {
+            for (int j = 0; j < verden.antKolonner; j++) {
+                Celle celle = verden.rutenett.hentCelle(i, j);
+                JPanel cellePanel = new JPanel();
+                cellePanel.setPreferredSize(new Dimension(CELLE_STORRELSE, CELLE_STORRELSE));
+                cellePanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+                if (celle.erLevende()) {
+                    cellePanel.setBackground(Color.BLACK);
+                } else {
+                    cellePanel.setBackground(Color.WHITE);
+                }
+                cellePanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        int rad = e.getY() / CELLE_STORRELSE;
+                        int kolonne = e.getX() / CELLE_STORRELSE;
+                        controller.celleKlikket(rad, kolonne);
+                    }
+                });
+                rutenettPanel.add(cellePanel);
+            }
+        }
+
+        // Oppretter knapp-panel
+        JPanel knappPanel = new JPanel();
+        startStoppKnapp = new JButton("Start");
+        startStoppKnapp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.startStoppSpill();
+            }
+        });
+        avsluttKnapp = new JButton("Avslutt");
+        avsluttKnapp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.avsluttSpill();
+            }
+        });
+        knappPanel.add(startStoppKnapp);
+        knappPanel.add(avsluttKnapp);
+
+        // Legger til paneler i vindu
+        add(rutenettPanel);
+        add(knappPanel, "South");
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+    // Oppdaterer rutenett-panel med oppdatert verden
+    public void oppdaterRutenett() {
+        for (int i = 0; i < verden.antRader; i++) {
+            for (int j = 0; j < verden.antKolonner; j++) {
+                Celle celle = verden.rutenett.hentCelle(i, j);
+                JPanel cellePanel = (JPanel) rutenettPanel.getComponent(i * verden.antKolonner + j);
+                if (celle.erLevende()) {
+                    cellePanel.setBackground(Color.BLACK);
+                } else {
+                    cellePanel.setBackground(Color.WHITE);
+                }
+            }
+        }
+    }
+
+    // Setter teksten på start/stopp-knappen
+    public void setStartStoppTekst(String tekst) {
+        startStoppKnapp.setText(tekst);
+    }
+}
+
+```
+
+Controller.java:
+```java
+// Klasse Controller
+public class Controller {
+    private Verden verden;
+    private View view;
+    private Timer timer;
+
+    // Konstruktor
+    public Controller(Verden verden, View view) {
+        this.verden = verden;
+        this.view = view;
+        view.setVisible(true);
+        view.setStartStoppTekst("Start");
+        view.oppdaterRutenett();
+    }
+
+    // Metode for å håndtere klikk på en celle
+    public void celleKlikket(int rad, int kolonne) {
+        Celle celle = verden.rutenett.hentCelle(rad, kolonne);
+        celle.setLevende(!celle.erLevende());
+        view.oppdaterRutenett();
+    }
+
+    // Metode for å starte/stoppet spillet
+    public void startStoppSpill() {
+        if (timer == null) {
+            timer = new Timer(100, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    verden.oppdatering();
+                    view.oppdaterRutenett();
+                }
+            });
+            timer.start();
+            view.setStartStoppTekst("Stopp");
+        } else {
+            timer.stop();
+            timer = null;
+            view.setStartStoppTekst("Start");
+        }
+    }
+
+    // Metode for å avslutte programmet
+    public void avsluttSpill() {
+        System.exit(0);
+    }
+}
+
+```
+
+Hovedprogram.java:
+```java
+// Klasse Hovedprogram
+public class Hovedprogram {
+    public static void main(String[] args) {
+        int antRader = 50;
+        int antKolonner = 50;
+        Verden verden = new Verden(antRader, antKolonner);
+        View view = new View(verden, new Controller(verden, new View(verden, null)));
+    }
+}
+
+```

@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-// Klasse GameOfLife
 public class GameOfLife {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -11,20 +10,14 @@ public class GameOfLife {
     System.out.println("Antall kolonner");
     int antKolonner = scanner.nextInt();
 
+    Rutenett rutenett = new Rutenett(antRader, antKolonner);
+    rutenett.fyllMedTilfeldigeCeller();
+    rutenett.kobleAlleCeller();
+
+    GameOfLifeGUI gui = new GameOfLifeGUI(rutenett);
     Verden verden = new Verden(antRader, antKolonner);
-    verden.tegn();
+    GameOfLifeController controller = new GameOfLifeController(verden, gui);
 
-    boolean fortsette = true;
-    while (fortsette) {
-      System.out.println("Fortsette? ['enter'/n]:");
-      String input = scanner.nextLine();
-
-      if (input == "") {
-        verden.oppdatering();
-        verden.tegn();
-      } else {
-        fortsette = false;
-      }
-    }
+    controller.start();
   }
 }

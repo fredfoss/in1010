@@ -25,6 +25,15 @@ public class Celle {
     return levende;
   }
 
+  // Toggle status
+  public void toggleStatus() {
+    if (erLevende()) {
+      settDoed();
+    } else {
+      settLevende();
+    }
+  }
+
   // Hent status-tegn
   public char hentStatusTegn() {
     if (levende) {
