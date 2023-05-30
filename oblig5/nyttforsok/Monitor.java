@@ -3,14 +3,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /** Monitor for å beskytte SubsekvensRegister-objektet mot samtidig tilgang fra flere tråder. */
-public class Monitor1 {
+public class Monitor {
 
   // Instantsvariabler
   private SubsekvensRegister register;
   private Lock lock;
 
   /** Opprett en monitor */
-  public Monitor1() {
+  public Monitor() {
     register = new SubsekvensRegister();
     lock = new ReentrantLock(); // Opprett en lock for å beskytte registeret
   }

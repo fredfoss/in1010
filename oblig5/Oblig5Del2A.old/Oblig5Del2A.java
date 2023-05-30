@@ -16,19 +16,18 @@ public class Oblig5Del2A {
       System.exit(1);
     }
 
-    // Variabler
     String dataMappe = args[0];
-    ArrayList<Thread> trader = new ArrayList<>();
+    ArrayList<Thread> traader = new ArrayList<>();
     Monitor1 monitor = new Monitor1(); // Opprett en Monitor1-objekt
 
-    // Start en trad for hver fil
+    // Start en tråd for hver fil
     try (Scanner scanner = new Scanner(new File(dataMappe, "metadata.csv"))) {
       while (scanner.hasNextLine()) {
         String filnavn = scanner.nextLine().trim();
         LeseTrad leseTrad = new LeseTrad(new File(dataMappe, filnavn).getPath(), monitor);
-        Thread trad = new Thread(leseTrad);
-        trad.start();
-        trader.add(trad);
+        Thread traad = new Thread(leseTrad);
+        traad.start();
+        traader.add(traad);
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -36,9 +35,9 @@ public class Oblig5Del2A {
     }
 
     // Vent på at alle trådene er ferdige
-    for (Thread trad : trader) {
+    for (Thread traad : traader) {
       try {
-        trad.join();
+        traad.join();
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -48,7 +47,7 @@ public class Oblig5Del2A {
     while (monitor.antallHashMaps() > 1) {
       HashMap<String, Subsekvens> hashMap1 = monitor.taUtHashMap();
       HashMap<String, Subsekvens> hashMap2 = monitor.taUtHashMap();
-      HashMap<String, Subsekvens> nyHashMap = monitor.flettHashMap(hashMap1, hashMap2);
+      HashMap<String, Subsekvens> nyHashMap = SubsekvensRegister.flettHashMap(hashMap1, hashMap2);
       monitor.leggTilHashMap(nyHashMap);
     }
 

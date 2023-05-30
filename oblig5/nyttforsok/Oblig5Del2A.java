@@ -19,7 +19,7 @@ public class Oblig5Del2A {
     // Variabler
     String dataMappe = args[0];
     ArrayList<Thread> trader = new ArrayList<>();
-    Monitor1 monitor = new Monitor1(); // Opprett en Monitor1-objekt
+    Monitor monitor = new Monitor(); // Opprett et Monitor-objekt
 
     // Start en trad for hver fil
     try (Scanner scanner = new Scanner(new File(dataMappe, "metadata.csv"))) {

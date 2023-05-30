@@ -12,8 +12,9 @@ public class LeseTrad implements Runnable {
 
   /** Leser filen og legger subsekvensene inn i Monitor1-objektet. */
   public void run() {
-    HashMap<String, Subsekvens> hashMap =
-        SubsekvensRegister.lesFil(filnavn); // Les filen og opprett en HashMap
-    monitor.leggTilHashMap(hashMap); // Legg HashMap-en til i Monitor1-objektet
+    // Les filen og opprett en HashMap
+    HashMap<String, Subsekvens> hashMap = SubsekvensRegister.lesFil(filnavn);
+    // Legg HashMap-en til i Monitor1-objektet
+    monitor.leggTilHashMap(hashMap);
   }
 }
