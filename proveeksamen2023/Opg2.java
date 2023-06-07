@@ -56,7 +56,30 @@ class Hund implements Comparable<Hund> {
   }
 
   public Hund finnEldsteKjenteOpphav() {
-    // Oppgave 2d
+
+    Hund mor = mor();
+    Hund far = far();
+
+    // Hvis baade mor og far ikke eksisterer, er denne hunden den eldste
+    if (mor == null && far == null) {
+      return this;
+    }
+
+    // Hvis bare mor eller bare far eksisterer
+    if (mor == null) {
+      return far.finnEldsteKjenteOpphav();
+    } else if (far == null) {
+      return mor.finnEldsteKjenteOpphav();
+    }
+
+    // Hvis baade mor og far eksisterer
+    Hund eldsteFarSide = far.finnEldsteKjenteOpphav();
+    Hund eldseMorSide = mor.finnEldsteKjenteOpphav();
+
+    if (eldsteFarSide.compareTo(eldseMorSide) < 0) {
+      return eldsteFarSide;
+    }
+    return eldseMorSide;
   }
 }
 

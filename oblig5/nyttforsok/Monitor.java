@@ -2,7 +2,10 @@ import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/** Monitor for å beskytte SubsekvensRegister-objektet mot samtidig tilgang fra flere tråder. */
+/**
+ * Monitor for å beskytte SubsekvensRegister-objektet mot samtidig tilgang fra
+ * flere tråder.
+ */
 public class Monitor {
 
   // Instantsvariabler
@@ -45,7 +48,9 @@ public class Monitor {
     }
   }
 
-  /** Les fil med substrenger (én persons blodprøve) og lag og returner hashMap */
+  /**
+   * Les fil med substrenger (én persons blodprøve) og lag og returner hashMap
+   */
   public HashMap<String, Subsekvens> lagHashMap(String filnavn) {
     lock.lock();
     try {
@@ -56,8 +61,9 @@ public class Monitor {
   }
 
   /** Slaa sammen og returner to hashMaps */
-  public HashMap<String, Subsekvens> flettHashMap(
-      HashMap<String, Subsekvens> hashMap1, HashMap<String, Subsekvens> hashMap2) {
+  public HashMap<String, Subsekvens>
+  flettHashMap(HashMap<String, Subsekvens> hashMap1,
+               HashMap<String, Subsekvens> hashMap2) {
     lock.lock();
     try {
       return register.flettHashMap(hashMap1, hashMap2);

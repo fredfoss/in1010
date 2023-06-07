@@ -1,14 +1,12 @@
 class Tidspunkt implements Comparable<Tidspunkt> {
 
-  private int[] tid;
+  private final int[] tid;
 
   public Tidspunkt(int aar, int mnd, int dag, int time, int min, int sek) {
     tid = new int[] {aar, mnd, dag, time, min, sek};
   }
 
-  public int[] getTid() {
-    return tid;
-  }
+  public int[] getTid() { return tid; }
 
   @Override
   public int compareTo(Tidspunkt annen) {

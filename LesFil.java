@@ -12,7 +12,7 @@ class LesFil {
       System.exit(1);
     }
 
-    // Les datafilen og skriv ut til terminal
+    // Les datafil og skriv ut til terminal
     while (f.hasNextLine()) {
       System.out.println(f.nextLine());
     }
