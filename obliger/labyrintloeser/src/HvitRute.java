@@ -32,9 +32,13 @@ public class HvitRute extends Rute {
   @Override
   public String toString() {
     if (foersteRute) {
-      return "\033[1;32m" + "x" + "\033[0m";
+      return "\033[1;32m"
+          + "x"
+          + "\033[0m";
     } else if (iRaskestVei) {
-      return "\033[0;32m" + "x" + "\033[0m";
+      return "\033[0;32m"
+          + "x"
+          + "\033[0m";
     } else {
       return ".";
     }

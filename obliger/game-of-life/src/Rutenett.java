@@ -34,7 +34,8 @@ public class Rutenett {
 
   // Returner en celle hvis koordinatene gitt finnes
   public Celle hentCelle(int rad, int kolonne) {
-    if ((rad > -1 && rad < antRader) && (kolonne > -1 && kolonne < antKolonner)) {
+    if ((rad > -1 && rad < antRader) &&
+        (kolonne > -1 && kolonne < antKolonner)) {
       Celle celle = rutene[rad][kolonne];
       return celle;
     } else {

@@ -23,7 +23,8 @@ public class Verden {
 
     System.out.println("Generasjon nr. " + genNr + ":");
     rutenett.tegnRutenett();
-    System.out.println("Det er " + rutenett.antallLevende() + " levende celler.");
+    System.out.println("Det er " + rutenett.antallLevende() +
+                       " levende celler.");
   }
 
   // Oppdaterer rutenettet

@@ -6,24 +6,16 @@ public class Celle {
   int antLevendeNaboer = 0;
 
   // Konstruktor
-  public Celle() {
-    levende = false;
-  }
+  public Celle() { levende = false; }
 
   // Sett status til død
-  public void settDoed() {
-    levende = false;
-  }
+  public void settDoed() { levende = false; }
 
   // Sett status til død
-  public void settLevende() {
-    levende = true;
-  }
+  public void settLevende() { levende = true; }
 
   // Sjekk om celle lever
-  public boolean erLevende() {
-    return levende;
-  }
+  public boolean erLevende() { return levende; }
 
   // Hent status-tegn
   public char hentStatusTegn() {
