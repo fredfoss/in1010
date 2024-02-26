@@ -1,20 +1,20 @@
 public class SortRute extends Rute {
 
-  /** Konstruktoer */
-  public SortRute(Labyrint labyrint, int rad, int kolonne) {
-    super(labyrint, rad, kolonne);
-  }
+	/** Konstruktoer */
+	public SortRute(Labyrint labyrint, int rad, int kolonne) {
+		super(labyrint, rad, kolonne);
+	}
 
-  /** Finn-metoden */
-  @Override
-  public void finn(Rute fra) {
-    if (fra == null) {
-      System.out.println("\033[0;31mOps!\033[0m Kan ikke starte i sort rute.");
-    }
-  }
+	/** Finn-metoden */
+	@Override
+	public void finn(Rute fra) {
+		if (fra == null) {
+			System.out.println("\033[0;31mOps!\033[0m Kan ikke starte i sort rute.");
+		}
+	}
 
-  @Override
-  public String toString() {
-    return "#";
-  }
+	@Override
+	public String toString() {
+		return "#";
+	}
 }
