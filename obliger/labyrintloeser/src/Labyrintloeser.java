@@ -38,74 +38,66 @@ public class Labyrintloeser {
 				labyrint.getAntAapninger());
 		System.out.println(labyrint);
 
-		// Kommandolokke
-		Scanner scanner = new Scanner(System.in);
-		while (true) {
+		try (Scanner scanner = new Scanner(System.in)) {
+			// Kommandolokke
+			while (true) {
 
-			// Ny instans av labyrint
-			try {
-				labyrint = new Labyrint(fil);
-			} catch (FileNotFoundException e) {
-				System.err.println("Filen ble ikke funnet: " + e.getMessage());
-				return;
-			}
-
-			System.out.println("\n\033[1mStartkoordinater:\033[0m");
-			System.out.print("> ");
-			String input = scanner.nextLine().trim();
-
-			// Avslutter loekken hvis brukeren skriver 'q'
-			if (input.equals("q")) {
-				break;
-			}
-
-			try {
-				// Leser brukerinput
-				String[] koordinater = input.split(" ");
-				int rad = Integer.parseInt(koordinater[0]);
-				int kol = Integer.parseInt(koordinater[1]);
-
-				// Raskest utvei
-				ArrayList<ArrayList<Rute>> utveier = labyrint.finnUtveiFra(rad, kol);
-
-				ArrayList<Rute> raskestUtvei;
-				if (utveier.size() > 0) {
-					raskestUtvei = utveier.get(0);
-					for (ArrayList<Rute> utvei : utveier) {
-						if (utvei.size() < raskestUtvei.size()) {
-							raskestUtvei = utvei;
-						}
-					}
-
-					for (Rute rute : raskestUtvei) {
-						rute.setIRaskestVei();
-					}
-
-					System.out.println(labyrint);
+				// Ny instans av labyrint
+				try {
+					labyrint = new Labyrint(fil);
+				} catch (FileNotFoundException e) {
+					System.err.println("Filen ble ikke funnet: " + e.getMessage());
+					return;
 				}
-			} catch (Exception e) {
-				System.out.println(
-						"\033[0;31mUgyldig input!\033[0m Oppgi startkoordinatene (<rad> <kolonne>), eller 'q'"
-								+ " for aa avslutte.");
+
+				System.out.println("\n\033[1mStartkoordinater:\033[0m");
+				System.out.print("> ");
+				String input = scanner.nextLine().trim();
+
+				// Avslutter loekken hvis brukeren skriver 'q'
+				if (input.equals("q")) {
+					break;
+				}
+
+				try {
+					// Leser brukerinput
+					String[] koordinater = input.split(" ");
+					int rad = Integer.parseInt(koordinater[0]);
+					int kol = Integer.parseInt(koordinater[1]);
+
+					// Raskest utvei
+					ArrayList<ArrayList<Rute>> utveier = labyrint.finnUtveiFra(rad, kol);
+
+					ArrayList<Rute> raskestUtvei;
+					if (utveier.size() > 0) {
+						raskestUtvei = utveier.get(0);
+						for (ArrayList<Rute> utvei : utveier) {
+							if (utvei.size() < raskestUtvei.size()) {
+								raskestUtvei = utvei;
+							}
+						}
+
+						for (Rute rute : raskestUtvei) {
+							rute.setIRaskestVei();
+						}
+
+						System.out.println(labyrint);
+					}
+				} catch (Exception e) {
+					System.out.println("\033[0;31mUgyldig input!\033[0m Oppgi startkoordinatene (<rad> <kolonne>), eller 'q'"
+							+ " for aa avslutte.");
+				}
 			}
 		}
 	}
 
 	/** Print forklaring bruke programmet */
-	private static void printUsage(
-			int antRader, int antKolonner, int antHvite, int antSorte, int antAapninger) {
+	private static void printUsage(int antRader, int antKolonner, int antHvite, int antSorte, int antAapninger) {
 		System.out.println("\033[1mFredrik's labyrintloeser!\033[0m");
 		System.out.println("Labyrinten har " + antRader + " rader og " + antKolonner + " kolonner.");
-		System.out.println(
-				"Det er "
-						+ antHvite
-						+ " hvite ruter, "
-						+ antSorte
-						+ " sorte ruter og "
-						+ antAapninger
-						+ " aapninger i labyrinten.");
-		System.out.println(
-				"For aa finne raskeste vei ut, oppgi startkoordinater (<rad> <kolonne>) og trykk enter.");
+		System.out.println("Det er " + antHvite + " hvite ruter, " + antSorte + " sorte ruter og " + antAapninger
+				+ " aapninger i labyrinten.");
+		System.out.println("For aa finne raskeste vei ut, oppgi startkoordinater (<rad> <kolonne>) og trykk enter.");
 		System.out.println("For aa avslutte, skriv 'q' og trykk enter.");
 	}
 }

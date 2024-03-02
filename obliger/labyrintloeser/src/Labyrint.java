@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 /** Labyrint-klassen */
 public class Labyrint {
-
 	// Instansvariabler
 	private Rute[][] ruter;
 	private int antRader;
