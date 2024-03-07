@@ -1,11 +1,9 @@
-# Labyringloeser
-
-> Fredrik Foss-Indrehus, fredfoss
+# Labyrintloeser
 
 Bruk:
 
 ```
 javac -d bin src/*.java
 cd bin
-java Labyringloeser ../data/LABYRINT
+java Labyrintloeser ../data/LABYRINT
 ```
